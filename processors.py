@@ -144,6 +144,7 @@ class SimpleDataGenerator(DataProcessor, Sequence):
 
         for i in file_ids:
             lidar = self.data_reader.read_lidar(self.lidar_files[i])
+
             pillars_, voxels_ = self.make_point_pillars(lidar)
 
             pillars.append(pillars_)
@@ -178,8 +179,8 @@ class SimpleDataGenerator(DataProcessor, Sequence):
 
     def on_epoch_end(self):
         shuffled_indices = np.random.permutation(np.arange(0, len(self.lidar_files)))
-        self.lidar_files = self.lidar_files[shuffled_indices]
+        self.lidar_files = np.array(self.lidar_files)[shuffled_indices]
 
         if self.label_files is not None:
-            self.calibration_files = self.calibration_files[shuffled_indices]
-            self.label_files = self.label_files[shuffled_indices]
+            self.calibration_files = np.array(self.calibration_files)[shuffled_indices]
+            self.label_files = np.array(self.label_files)[shuffled_indices]

@@ -37,6 +37,7 @@ class KittiDataReader(DataReader):
 
     @staticmethod
     def read_lidar(file_path: str):
+
         return np.fromfile(file_path, dtype=np.float32).reshape((-1, 4))
 
     @staticmethod
